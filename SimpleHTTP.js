@@ -1,13 +1,13 @@
 var http = require('http'); //load http and fs modules for node
 var fs = require('fs');
 
-var port = 1234; //if , port is likely already in use
+var port = 1234; //provide a port number to run server
 var localhost = '127.0.0.1';
 
 var server = http.createServer(function(request, response){
-	var url = request.url;
+	var url = request.url; //store requested url
 
-	// root web request will redirect to /public/index.html
+	// root web request will return /public/index.html
 	if (url == '/') {
 		fs.readFile('./public/index.html', function(err, data) {
 			response.writeHead(200, {"Content-Type": "text/html"});
@@ -15,6 +15,7 @@ var server = http.createServer(function(request, response){
 		})
 	} else {
 		fs.readFile('./public' + url, function(err, data) {
+			//read requested file in /public if present
 
 			// 404 error code
 			if(err){ //if requested url is not present
